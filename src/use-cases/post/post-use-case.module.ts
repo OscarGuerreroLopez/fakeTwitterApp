@@ -5,6 +5,7 @@ import { PostUseCases } from './post.use-case';
 import { PostFactoryService } from './post-factory.service';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
+import { AnomalyService } from './anomaly.service';
 
 @Module({
   imports: [DataServicesModule, SocialMediaServicesModule],
@@ -13,6 +14,7 @@ import { CreateTweetPostService } from './createTweetPost.service';
     PostFactoryService,
     CreatePostService,
     CreateTweetPostService,
+    AnomalyService,
   ],
   exports: [PostUseCases, PostFactoryService],
 })

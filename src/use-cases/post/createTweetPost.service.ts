@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { DataServices, Tweet, TweetPost } from '../../core';
+import { AnomalyService } from './anomaly.service';
 
 @Injectable()
 export class CreateTweetPostService {
-  constructor(private dataServices: DataServices) {}
+  constructor(
+    private dataServices: DataServices,
+    private anomalyService: AnomalyService,
+  ) {}
 
   async createTweetPost(tweet: Tweet) {
     for (const hashtag of tweet.hashtags) {
@@ -36,9 +40,14 @@ export class CreateTweetPostService {
           },
         ];
 
-        await this.dataServices.tweetPosts.update(existingHashtag._id, {
-          properties: updateProperties,
-        });
+        const updatedHashtag = await this.dataServices.tweetPosts.update(
+          existingHashtag._id,
+          {
+            properties: updateProperties,
+          },
+        );
+
+        this.anomalyService.alertAnomaly(updatedHashtag);
       }
     }
   }
