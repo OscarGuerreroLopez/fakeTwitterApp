@@ -8,8 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class SimulatedStreamingService {
   constructor(private eventEmitter: EventEmitter2) {
-    // Simulate tweeting every 10 seconds
-    interval(10000).subscribe(() => {
+    // Simulate tweeting every 12 seconds
+    interval(12000).subscribe(() => {
       const facebook = {
         postId: uuidv4(), // Generate a random postId
         content: 'Simulated post content',

@@ -3,11 +3,9 @@ import { GenericRepo } from '../../../core';
 
 export class MongoGenericRepository<T> implements GenericRepo<T> {
   private _repository: Model<T>;
-  private _populateOnFind: string[];
 
-  constructor(repository: Model<T>, populateOnFind: string[] = []) {
+  constructor(repository: Model<T>) {
     this._repository = repository;
-    this._populateOnFind = populateOnFind;
   }
 
   create(data: T): Promise<T> {
@@ -15,21 +13,22 @@ export class MongoGenericRepository<T> implements GenericRepo<T> {
   }
 
   findAll(): Promise<T[]> {
-    return this._repository.find().populate(this._populateOnFind).exec();
+    return this._repository.find().exec();
   }
 
   findOne(id: string): Promise<T> {
-    return this._repository
-      .findById(id)
-      .populate(this._populateOnFind)
-      .exec() as Promise<T>;
+    return this._repository.findById(id).exec() as Promise<T>;
   }
 
-  update(id: string, data: T): Promise<T> {
+  update(id: string, data: Partial<T>): Promise<T> {
     return this._repository.findByIdAndUpdate(id, data);
   }
 
   delete(id: string): Promise<T> {
     return this._repository.findByIdAndDelete(id);
+  }
+
+  findByField(value: string): Promise<T> {
+    return this._repository.findOne({ hashtag: value }).exec();
   }
 }

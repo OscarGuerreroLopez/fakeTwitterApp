@@ -10,7 +10,6 @@ export class PostFactoryService {
     newPost.hashtags = createPost.hashtags;
     newPost.originId = createPost.originId;
     newPost.platform = createPost.platform;
-    newPost._id = createPost._id;
 
     return newPost;
   }

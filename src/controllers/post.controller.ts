@@ -10,4 +10,9 @@ export class PostController {
   async getAll() {
     return this.authorUseCases.getPosts();
   }
+
+  @Get('/tweets')
+  async getTweets() {
+    return this.authorUseCases.getTweetPosts();
+  }
 }
