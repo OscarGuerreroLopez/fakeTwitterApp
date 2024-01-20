@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { DataServices, Tweet, TweetPost } from '../../core';
-import { PostFactoryService } from './post-factory.service';
 
 @Injectable()
 export class CreateTweetPostService {
-  constructor(
-    private dataServices: DataServices,
-    private postFactoryService: PostFactoryService,
-  ) {}
+  constructor(private dataServices: DataServices) {}
 
   async createTweetPost(tweet: Tweet) {
     for (const hashtag of tweet.hashtags) {
