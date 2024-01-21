@@ -4,6 +4,8 @@ import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
 import { DataServices, Tweet, Facebook } from '../../core';
 
+jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
+
 jest.mock('./createPost.service');
 jest.mock('./createTweetPost.service');
 
@@ -14,7 +16,7 @@ const mockPostFindAll = [
     content: 'Simulated tweet content',
     hashtags: ['simulated', "i'm-not-very-creative"],
     platform: 'twitter',
-    createdAt: '2024-01-21T17:57:02.240Z',
+    createdAt: new Date(),
     __v: 0,
   },
   {
