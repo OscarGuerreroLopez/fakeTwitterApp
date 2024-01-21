@@ -50,3 +50,19 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## API
+
+you can query the app at any time during execution to see the two collections that I use, posts and tweets
+
+to see all posts/tweets received:
+
+```
+curl --location 'localhost:3000/posts'
+```
+
+and to see all the tweets groupBy hashtag
+
+```
+curl --location 'localhost:3000/posts/tweets'
+```
