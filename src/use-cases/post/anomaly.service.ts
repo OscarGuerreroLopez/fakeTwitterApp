@@ -9,7 +9,6 @@ export class AnomalyService {
     // Calculate the timestamp for 5 minutes ago
     const twoMinutesAgo = new Date();
     twoMinutesAgo.setMinutes(twoMinutesAgo.getMinutes() - 2);
-    console.log('@@@ 2 minutes ago', twoMinutesAgo);
 
     // Filter 'properties' objects within the last 2 minutes
     const propertiesWithinLast5Minutes = properties.filter(

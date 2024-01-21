@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreatePostService } from './createPost.service';
-import { DataServices, Tweet, Facebook, Post } from '../../core';
+import { DataServices, Tweet, Facebook } from '../../core';
 import { PostFactoryService } from './post-factory.service';
 
 jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
@@ -8,7 +8,6 @@ jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
 describe('CreatePostService', () => {
   let createPostService: CreatePostService;
   let dataServices: DataServices;
-  let postFactoryService: PostFactoryService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,13 +24,12 @@ describe('CreatePostService', () => {
             },
           }),
         },
-        PostFactoryService, // No need to mock PostFactoryService
+        PostFactoryService,
       ],
     }).compile();
 
     createPostService = module.get<CreatePostService>(CreatePostService);
     dataServices = module.get<DataServices>(DataServices);
-    postFactoryService = module.get<PostFactoryService>(PostFactoryService);
   });
 
   afterEach(() => {
