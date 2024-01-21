@@ -25,7 +25,7 @@ const mockPostFindAll = [
     content: 'Simulated tweet content',
     hashtags: ['simulated', 'hashtag'],
     platform: 'twitter',
-    createdAt: '2024-01-21T17:57:07.239Z',
+    createdAt: new Date(),
     __v: 0,
   },
 ];
@@ -38,13 +38,13 @@ const mockTweetPostFindAll = [
       {
         tweetId: '2d9e7027-2012-45a6-85aa-5264804763ee',
         content: 'Simulated tweet content',
-        createdAt: '2024-01-21T17:57:02.240Z',
+        createdAt: new Date(),
         hashtags: ['simulated', "i'm-not-very-creative"],
       },
       {
         tweetId: '486b1f1a-2d52-4f79-a9f8-3ab11bece19b',
         content: 'Simulated tweet content',
-        createdAt: '2024-01-21T17:57:07.239Z',
+        createdAt: new Date(),
         hashtags: ['simulated', 'hashtag'],
       },
     ],
@@ -57,7 +57,7 @@ const mockTweetPostFindAll = [
       {
         tweetId: '2d9e7027-2012-45a6-85aa-5264804763ee',
         content: 'Simulated tweet content',
-        createdAt: '2024-01-21T17:57:02.240Z',
+        createdAt: new Date(),
         hashtags: ['simulated', "i'm-not-very-creative"],
       },
     ],
@@ -70,7 +70,7 @@ const mockTweetPostFindAll = [
       {
         tweetId: '486b1f1a-2d52-4f79-a9f8-3ab11bece19b',
         content: 'Simulated tweet content',
-        createdAt: '2024-01-21T17:57:07.239Z',
+        createdAt: new Date(),
         hashtags: ['simulated', 'hashtag'],
       },
     ],
