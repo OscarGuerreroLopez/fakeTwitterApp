@@ -9,7 +9,6 @@ import { CreateTweetPostService } from './createTweetPost.service';
 export class PostUseCases {
   constructor(
     private dataServices: DataServices,
-    private postFactoryService: PostFactoryService,
     private createPostService: CreatePostService,
     private createTweetPostService: CreateTweetPostService,
   ) {}
