@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { DataServices, Tweet, Facebook } from '../../core';
-import { PostFactoryService } from './post-factory.service';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
 
