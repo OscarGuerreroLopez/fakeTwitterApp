@@ -28,7 +28,7 @@ export class MongoGenericRepository<T> implements GenericRepo<T> {
     return this._repository.findByIdAndDelete(id);
   }
 
-  findByField(value: string): Promise<T> {
+  findByHashtag(value: string): Promise<T> {
     return this._repository.findOne({ hashtag: value }).exec();
   }
 }

@@ -11,7 +11,7 @@ export class CreateTweetPostService {
 
   async createTweetPost(tweet: Tweet) {
     for (const hashtag of tweet.hashtags) {
-      const existingHashtag = await this.dataServices.tweetPosts.findByField(
+      const existingHashtag = await this.dataServices.tweetPosts.findByHashtag(
         hashtag,
       );
 
