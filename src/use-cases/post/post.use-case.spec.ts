@@ -3,6 +3,7 @@ import { PostUseCases } from './post.use-case';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
 import { DataServices, Tweet, Facebook } from '../../core';
+import { SocialMediaServicesModule } from '../../services/social-media/social-media.module';
 
 jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
 
@@ -85,6 +86,7 @@ describe('PostUseCases', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [SocialMediaServicesModule],
       providers: [
         PostUseCases,
         CreatePostService,
@@ -122,7 +124,7 @@ describe('PostUseCases', () => {
       createdAt: new Date(),
     };
 
-    await postUseCases.handleTweetCreatedEvent(tweetPayload);
+    await postUseCases.handleTweet(tweetPayload);
 
     expect(createPostService.createPost).toHaveBeenCalledWith(tweetPayload);
     expect(createTweetPostService.createTweetPost).toHaveBeenCalledWith(
@@ -138,7 +140,7 @@ describe('PostUseCases', () => {
       createdAt: new Date(),
     };
 
-    postUseCases.handleFacebookCreatedEvent(facebookPayload);
+    postUseCases.handleFacebookEvent(facebookPayload);
 
     expect(createPostService.createPost).toHaveBeenCalledWith(facebookPayload);
   });

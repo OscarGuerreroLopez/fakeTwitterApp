@@ -20,9 +20,7 @@ export class PostUseCases {
     private facebookListenerService: FacebookServices,
   ) {
     this.tweeterListenerService.tweetHandler(this.handleTweet);
-    this.facebookListenerService.facebookHandler(
-      this.handleFacebookCreatedEvent,
-    );
+    this.facebookListenerService.facebookHandler(this.handleFacebookEvent);
   }
 
   handleTweet = async (payload: Tweet) => {
@@ -36,7 +34,7 @@ export class PostUseCases {
     await this.createTweetPostService.createTweetPost(tweet);
   };
 
-  handleFacebookCreatedEvent = async (payload: Facebook) => {
+  handleFacebookEvent = async (payload: Facebook) => {
     const facebookPost = new Facebook();
     facebookPost.postId = payload.postId;
     facebookPost.content = payload.content;
