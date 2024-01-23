@@ -12,7 +12,7 @@ export class SimulatedStreamingService {
     interval(12000).subscribe(() => {
       const facebook = {
         postId: uuidv4(), // Generate a random postId
-        content: 'Simulated post content',
+        content: 'Simulated facebook post content',
         hashtags: ['simulated', 'test', 'hashtag'],
         createdAt: new Date(),
       };

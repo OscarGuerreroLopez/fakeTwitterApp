@@ -1,6 +1,8 @@
-import { EventHandler } from '../entities';
+import { TweetEventHandler } from '../entities';
 
 export abstract class TweeterServices {
-  abstract eventHandler: EventHandler;
-  abstract tweetHandler: (handler: EventHandler) => Promise<EventHandler>;
+  abstract eventHandler: TweetEventHandler;
+  abstract tweetHandler: (
+    handler: TweetEventHandler,
+  ) => Promise<TweetEventHandler>;
 }

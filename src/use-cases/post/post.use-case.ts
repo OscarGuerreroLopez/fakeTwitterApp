@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { DataServices, Tweet, Facebook, TweeterServices } from '../../core';
+import {
+  DataServices,
+  Tweet,
+  Facebook,
+  TweeterServices,
+  FacebookServices,
+} from '../../core';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
 import { OnEvent } from '@nestjs/event-emitter';
@@ -11,8 +17,12 @@ export class PostUseCases {
     private createPostService: CreatePostService,
     private createTweetPostService: CreateTweetPostService,
     private tweeterListenerService: TweeterServices,
+    private facebookListenerService: FacebookServices,
   ) {
     this.tweeterListenerService.tweetHandler(this.handleTweet);
+    this.facebookListenerService.facebookHandler(
+      this.handleFacebookCreatedEvent,
+    );
   }
 
   handleTweet = async (payload: Tweet) => {
@@ -26,15 +36,14 @@ export class PostUseCases {
     await this.createTweetPostService.createTweetPost(tweet);
   };
 
-  @OnEvent('facebook')
-  handleFacebookCreatedEvent(payload: Facebook) {
+  handleFacebookCreatedEvent = async (payload: Facebook) => {
     const facebookPost = new Facebook();
     facebookPost.postId = payload.postId;
     facebookPost.content = payload.content;
     facebookPost.hashtags = payload.hashtags;
     facebookPost.createdAt = payload.createdAt;
     this.createPostService.createPost(facebookPost);
-  }
+  };
 
   async getPosts() {
     const result = await this.dataServices.posts.findAll();

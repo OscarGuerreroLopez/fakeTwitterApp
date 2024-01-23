@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { Tweet, EventHandler, TweeterServices } from '../../../core';
+import { Tweet, TweetEventHandler, TweeterServices } from '../../../core';
 
 @Injectable()
 export class TweeterListenerService implements TweeterServices {
-  eventHandler: EventHandler;
+  eventHandler: TweetEventHandler;
 
   @OnEvent('tweet')
   private async handleTweetCreatedEvent(payload: Tweet) {
@@ -13,7 +13,7 @@ export class TweeterListenerService implements TweeterServices {
     }
   }
 
-  async tweetHandler(handler: EventHandler) {
+  async tweetHandler(handler: TweetEventHandler) {
     if (!this.eventHandler) {
       this.eventHandler = handler;
     }

@@ -1,3 +1,5 @@
+import { Facebook } from './facebook';
 import { Tweet } from './tweet';
 
-export type EventHandler = (payload: Tweet) => Promise<void>;
+export type TweetEventHandler = (payload: Tweet) => Promise<void>;
+export type FacebookEventHandler = (payload: Facebook) => Promise<void>;
