@@ -8,7 +8,6 @@ import {
 } from '../../core';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
-import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PostUseCases {
