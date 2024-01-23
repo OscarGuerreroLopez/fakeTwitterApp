@@ -4,6 +4,7 @@ import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
 import { DataServices, Tweet, Facebook } from '../../core';
 import { SocialMediaServicesModule } from '../../services/social-media/social-media.module';
+import { LoggersModule } from '../../services/loggers/loggers.module';
 
 jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
 
@@ -86,7 +87,7 @@ describe('PostUseCases', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [SocialMediaServicesModule],
+      imports: [SocialMediaServicesModule, LoggersModule],
       providers: [
         PostUseCases,
         CreatePostService,
