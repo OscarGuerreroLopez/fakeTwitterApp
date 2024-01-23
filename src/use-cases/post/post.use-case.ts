@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { OnEvent } from '@nestjs/event-emitter';
-import { DataServices, Tweet, Facebook } from '../../core';
+import { DataServices, Tweet, Facebook, TweeterServices } from '../../core';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
+import { OnEvent } from '@nestjs/event-emitter';
 
 @Injectable()
 export class PostUseCases {
@@ -10,10 +10,12 @@ export class PostUseCases {
     private dataServices: DataServices,
     private createPostService: CreatePostService,
     private createTweetPostService: CreateTweetPostService,
-  ) {}
+    private tweeterListenerService: TweeterServices,
+  ) {
+    this.tweeterListenerService.tweetHandler(this.handleTweet);
+  }
 
-  @OnEvent('tweet')
-  async handleTweetCreatedEvent(payload: Tweet) {
+  handleTweet = async (payload: Tweet) => {
     const tweet = new Tweet();
     tweet.tweetId = payload.tweetId;
     tweet.content = payload.content;
@@ -22,7 +24,7 @@ export class PostUseCases {
 
     await this.createPostService.createPost(tweet);
     await this.createTweetPostService.createTweetPost(tweet);
-  }
+  };
 
   @OnEvent('facebook')
   handleFacebookCreatedEvent(payload: Facebook) {
