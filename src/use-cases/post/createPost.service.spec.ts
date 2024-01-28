@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreatePostService } from './createPost.service';
-import { DataServices, Tweet, Facebook } from '../../core';
+import { DataServices, Tweet, Facebook, LoggersService } from '../../core';
 import { PostFactoryService } from './post-factory.service';
+import { LoggersModule } from '../../services/loggers/loggers.module';
 
 jest.useFakeTimers().setSystemTime(new Date('2022-11-04'));
 
@@ -11,6 +12,7 @@ describe('CreatePostService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [LoggersModule],
       providers: [
         CreatePostService,
         {
@@ -23,6 +25,13 @@ describe('CreatePostService', () => {
               create: jest.fn().mockResolvedValue({}),
             },
           }),
+        },
+        {
+          provide: LoggersService,
+          useValue: {
+            debug: jest.fn(),
+            info: jest.fn(),
+          },
         },
         PostFactoryService,
       ],

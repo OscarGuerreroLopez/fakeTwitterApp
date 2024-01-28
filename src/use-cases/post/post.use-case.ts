@@ -5,6 +5,7 @@ import {
   Facebook,
   TweeterServices,
   FacebookServices,
+  LoggersService,
 } from '../../core';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
@@ -17,6 +18,7 @@ export class PostUseCases {
     private createTweetPostService: CreateTweetPostService,
     private tweeterListenerService: TweeterServices,
     private facebookListenerService: FacebookServices,
+    private loggersService: LoggersService,
   ) {
     this.tweeterListenerService.tweetHandler(this.handleTweet);
     this.facebookListenerService.facebookHandler(this.handleFacebookEvent);
@@ -28,6 +30,7 @@ export class PostUseCases {
     tweet.content = payload.content;
     tweet.hashtags = payload.hashtags;
     tweet.createdAt = payload.createdAt;
+    this.loggersService.debug('tweet received', payload);
 
     await this.createPostService.createPost(tweet);
     await this.createTweetPostService.createTweetPost(tweet);

@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { DataServices, Tweet, Facebook, Post } from '../../core';
+import {
+  DataServices,
+  Tweet,
+  Facebook,
+  Post,
+  LoggersService,
+} from '../../core';
 import { PostFactoryService } from './post-factory.service';
 
 @Injectable()
@@ -7,6 +13,7 @@ export class CreatePostService {
   constructor(
     private dataServices: DataServices,
     private postFactoryService: PostFactoryService,
+    private loggersService: LoggersService,
   ) {}
   async createPost(params: Facebook | Tweet) {
     const { content, createdAt, hashtags } = params;
@@ -33,6 +40,8 @@ export class CreatePostService {
 
     const result = await this.dataServices.posts.create(newPost);
 
-    console.log(`@@@ ${typeOfPost} post saved`, result._id);
+    this.loggersService.info(
+      `@@@ ${typeOfPost} post saved with id ${result._id}`,
+    );
   }
 }
