@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreatePostService } from './createPost.service';
-import { DataServices, Tweet, Facebook } from '../../core';
+import { DataServices, Tweet, Facebook, LoggersService } from '../../core';
 import { PostFactoryService } from './post-factory.service';
 import { LoggersModule } from '../../services/loggers/loggers.module';
 
@@ -25,6 +25,13 @@ describe('CreatePostService', () => {
               create: jest.fn().mockResolvedValue({}),
             },
           }),
+        },
+        {
+          provide: LoggersService,
+          useValue: {
+            debug: jest.fn(),
+            info: jest.fn(),
+          },
         },
         PostFactoryService,
       ],

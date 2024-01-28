@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PostUseCases } from './post.use-case';
 import { CreatePostService } from './createPost.service';
 import { CreateTweetPostService } from './createTweetPost.service';
-import { DataServices, Tweet, Facebook } from '../../core';
+import { DataServices, Tweet, Facebook, LoggersService } from '../../core';
 import { SocialMediaServicesModule } from '../../services/social-media/social-media.module';
 import { LoggersModule } from '../../services/loggers/loggers.module';
 
@@ -102,6 +102,12 @@ describe('PostUseCases', () => {
               findAll: jest.fn().mockResolvedValue(mockTweetPostFindAll),
             },
           }),
+        },
+        {
+          provide: LoggersService,
+          useValue: {
+            debug: jest.fn(),
+          },
         },
       ],
     }).compile();
