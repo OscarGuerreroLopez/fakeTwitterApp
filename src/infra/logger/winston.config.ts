@@ -1,9 +1,9 @@
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 
-const transports = [
-  new winston.transports.DailyRotateFile({
-    filename: './logs/debug-%DATE%.log',
+const createTransport = (level: string): winston.transport => {
+  return new winston.transports.DailyRotateFile({
+    filename: `./logs/${level}-%DATE%.log`,
     datePattern: 'YYYY-MM-DD',
     zippedArchive: true,
     maxSize: '20m',
@@ -12,45 +12,13 @@ const transports = [
       winston.format.timestamp(),
       winston.format.json(),
     ),
-    level: 'debug',
-  }),
-  new winston.transports.DailyRotateFile({
-    filename: './logs/info-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
-    level: 'info',
-  }),
-  new winston.transports.DailyRotateFile({
-    filename: './logs/warn-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
-    level: 'warn',
-  }),
-  new winston.transports.DailyRotateFile({
-    filename: './logs/error-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    zippedArchive: true,
-    maxSize: '20m',
-    maxFiles: '14d',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
-    level: 'error',
-  }),
-];
+    level,
+  });
+};
+
+const levels = ['debug', 'info', 'warn', 'error'];
+
+const transports = levels.map(createTransport);
 
 const { combine, timestamp, prettyPrint, json } = winston.format;
 
